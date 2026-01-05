@@ -1,0 +1,55 @@
+from random import choice
+balance = 500000.00
+
+import time
+import sys
+
+def waiting_animation():
+    chars = ['\\','^','|','>','/','--']
+    for i in range(20):  # Run for 20 iterations
+        sys.stdout.write('\r' + chars[i % 6])
+        sys.stdout.flush()
+        time.sleep(0.2)
+
+waiting_animation()
+
+
+def transactions():
+    ###this function handles transactions.
+    print("Transactions")
+    t_amount = input("Type in your desired amount:\n₦ ")
+    print("₦" + t_amount)
+    t_target = input("Type in your desired account number:\n")
+    if len(t_target) != 10:
+        print ("Invalid account number. . .")
+        return transactions()
+    else:
+        print ("Account number " + t_target + " selected.")
+    t_amount = float(t_amount)
+    if t_amount > balance:
+        print("Insufficient funds. . .")
+        t_amount = input("Type in your desired amount:\n₦ ")
+        for amount in range(12):
+            t_amount = float(t_amount)
+            if t_amount > balance:
+                print("Insufficient funds. . .")
+                t_amount = input("Type in your desired amount:\n₦ ")
+            else:
+                print("Processing transaction...")
+                waiting_animation()
+                print ("Transaction of ₦" + str(t_amount) + " successful.")
+    
+                new_balance = balance - t_amount
+                print("Your new balance is: ₦" + str(new_balance))
+                break
+
+    elif t_amount <= balance and t_amount <= 1000000:
+        print("Processing transaction...")
+        waiting_animation()
+        print ("Transaction of ₦" + str(t_amount) + " to " + str(t_target) + " successful.")
+    
+        new_balance = balance - t_amount
+        print("Your new balance is: ₦" + str(new_balance))
+transactions()
+
+
