@@ -4,16 +4,19 @@ def create_account():
 
     username = input("Enter username: ")
     if username in accounts:
-        print("Username already exists.")
+        print("This Username already exists.")
         return
 
     pin = input("Create PIN: ")
+       if not pin.isdigit():
+           print("PIN must be numbers only")
+    
     accounts[username] = {
         "pin": pin,
         "balance": 0
     }
 
-    print("Account created successfully!")
+    print("Account has been created successfully!")
 
 
 def login():
@@ -29,7 +32,7 @@ def login():
         print("Login successful!")
         return username
     else:
-        print("Wrong PIN.")
+        print("Wrong PIN, Please input pin.")
         return None
 
 
@@ -52,7 +55,7 @@ def withdraw(username):
         print("Remaining balance:", accounts[username]["balance"])
         
 def check_balance(username):
-    print("Your balance is:", accounts[username]["balance"])
+    print("Your balance is:",accounts[username]["balance"])
 
 
 def change_pin(username):
@@ -120,4 +123,5 @@ while True:
 
     else:
         print("Invalid choice.")
+
 
