@@ -1,0 +1,130 @@
+accounts = {}
+def create_account():
+    print("\nCreate Account")
+
+    username = input("Enter username: ")
+    if username in accounts:
+        print("Username already exists.")
+        return
+
+    pin = input("Create PIN: ")
+    if not pin.isdigit():
+        print("PIN must be a number.")
+        return  create_account()
+
+    accounts[username] = {
+        "pin": pin,
+        "balance": 0
+    }
+
+    print("Account created successfully!")
+
+
+def login():
+    print("\nLogin")
+
+    username = input("Enter username: ")
+    if username not in accounts:
+        print("Account does not exist.")
+        return None
+
+    pin = int(input("Enter PIN: ")).isdigit
+    if pin == accounts[username]["pin"]:
+        print("Login successful!")
+        return username
+   
+    else:
+        print("Wrong PIN.")
+        return None
+
+
+def deposit(username):
+    amount = float(input("Enter amount to deposit: "))
+    accounts[username]["balance"] += amount
+    print("Deposit successful.")
+    print("New balance:", accounts[username]["balance"])
+
+
+
+def withdraw(username):
+    amount = float(input("Enter amount to withdraw: "))
+
+    if amount > accounts[username]["balance"]:
+        print("Insufficient balance.")
+    else:
+        accounts[username]["balance"] -= amount
+        print("Withdrawal successful.")
+        print("Remaining balance:", accounts[username]["balance"])
+        
+def check_balance(username):
+    print("Your balance is:", accounts[username]["balance"])
+
+
+def change_pin(username):
+    old_pin = input("Enter old PIN: ")
+
+    if old_pin != accounts[username]["pin"]:
+        print("Incorrect PIN.")
+        return
+
+    new_pin = input("Enter new PIN: ")
+    accounts[username]["pin"] = new_pin
+    print("PIN changed successfully.")
+
+
+
+# Menu Page section
+# -----------------------------
+# Main Program (ATM Menu)
+
+while True:
+    print("\n-----WELCOME TO GROUP 2 ATM'S SOFTWARE-----")
+    print("1. Create Account")
+    print("2. Login")
+    print("3. Exit")
+
+    choice = input("Choose an option: ")
+
+    if choice == "1":
+        create_account()
+
+    elif choice == "2":
+        user = login()
+
+        if user:
+            while True:
+                print("\nATM MENU")
+                print("1. Deposit")
+                print("2. Withdraw")
+                print("3. Check Balance")
+                print("4. Change PIN")
+                print("5. Logout")
+
+                option = input("Choose an option: ")
+
+                if option == "1":
+                    deposit(user)
+
+                elif option == "2":
+                    withdraw(user)
+
+                elif option == "3":
+                    check_balance(user)
+
+                elif option == "4":
+                    change_pin(user)
+
+                elif option == "5":
+                    print("Logged out.")
+                    break
+
+                else:
+                    print("Invalid option.")
+
+    elif choice == "3":
+        print("Thank you for using our ATM.")
+        break
+
+    else:
+        print("Invalid choice.")
+
